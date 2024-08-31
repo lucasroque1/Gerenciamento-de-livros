@@ -30,17 +30,17 @@ npm install json-server
 Agora crie um arquivo db.json na raiz do projeto:
 
 {
- "products": [
- {
- "id": "1",
- "name": "Produto 1",
- "description": "Descrição do produto 1",
- "price": 100,
- "quantity": 10
- }
- ]
+  "livros": [
+    {
+      "id": "5c18",
+      "titulo": "bat",
+      "autor": "eu",
+      "ano": "123321",
+      "genero": "ação",
+      "paginas": "123"
+    }
+  ]
 }
-
 Inicializando o servidor:
 
 npx json-server --watch db.json --port 3001
@@ -51,14 +51,14 @@ Aqui está a estrutura básica que você deve seguir:
 
 src/
 components/
- ProductList.tsx
- ProductForm.tsx
- ProductItem.tsx
+ LivroList.tsx
+ LivroForm.tsx
+ LivroItem.tsx
  
 pages/
  Home.tsx
- EditProduct.tsx
- AddProduct.tsx
+ EditLivro.tsx
+ AddLivro.tsx
  
 services/
  api.ts
@@ -75,218 +75,227 @@ const api = axios.create({
  baseURL: 'http://localhost:3001'
  
 });
-export const getProducts = () => api.get('/products');
-export const getProductById = (id: string) => api.get(`/products/${id}`);
-export const createProduct = (product: any) => api.post('/products', product);
-export const updateProduct = (id: string, product: any) => api.put(`/products/${id}`, product);
-export const deleteProduct = (id: string) => api.delete(`/products/${id}`);
+export const getLivros = () => api.get('/livros');
+export const getLivroById = (id: string) => api.get(`/livros/${id}`);
+export const createLivro = (livro: any) => api.post('/livros', livro);
+export const updateLivro = (id: string, livro: any) => api.put(`/livros/${id}`, livro);
+export const deleteLivro = (id: string) => api.delete(`/livros/${id}`);
 
-3.2 ProductList.tsx
+3.2 LivroList.tsx
 
 import { useEffect, useState } from 'react';
-import { getProducts, deleteProduct } from '../services/api';
+import { getLivros, deleteLivro } from '../services/api';
 import { Link } from 'react-router-dom';
-interface Product {
+interface Livro {
  id: string;
- name: string;
- description: string;
- price: number;
- quantity: number;
+ titulo: string;
+ autor: string;
+ ano: number;
+ genero: strimg;
+ paginas: number;
 }
 
-function ProductList() {
-
- const [products, setProducts] = useState<Product[]>([]);
- useEffect(() => {
- loadProducts();
- }, []);
- 
- const loadProducts = async () => {
- const response = await getProducts();
- setProducts(response.data);
- };
- 
- const handleDelete = async (id: string) => {
- await deleteProduct(id);
- loadProducts();
- };
- 
- return (
- <div>
- <h1>Product List</h1>
- <Link to="/add">Add Product</Link>
- <ul>
- {products.map((product) => (
- <li key={product.id}>
- {product.name} - ${product.price} - {product.quantity} units
- <Link to={`/edit/${product.id}`}>Edit</Link>
- <button onClick={() => handleDelete(product.id)}>Delete</button>
- </li>
- ))}
- </ul>
- </div>
- );
+function LivroList() {
+    const [livros, setLivros] = useState<Livro[]>([]);
+    useEffect(() => {
+        loadLivros();
+    }, []);
+    const loadLivros = async () => {
+        const response = await getLivros();
+        setLivros(response.data);
+    };
+    const handleDelete = async (id: string) => {
+        await deleteLivro(id);
+        loadLivros();
+    };
+    return (
+        <div>
+            <h1>Livro List</h1>
+            <Link to="/add">Adiconar um Livro</Link>
+                {livros.map((livro) => (
+                    <li key={livro.id}>
+                        Titulo:{livro.titulo} - {livro.autor} - Ano:{livro.ano} -  Genero:{livro.genero} - {livro.paginas} quantidades
+                        <span style={{ marginRight: '10px' }}>quantidades</span>
+                        <Link to={`/edit/${livro.id}`}style={{ marginRight: '10px' }}>Edit</Link>
+                        <button onClick={() => handleDelete(livro.id)}>Delete</button>
+                    </li>
+                ))}
+        </div>
+    );
 }
+export default LivroList;
 
-export default ProductList;
-
-3.3 ProductForm.tsx
+3.3 LivroForm.tsx
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createProduct, getProductById, updateProduct } from '../services/api';
-interface Product {
- name: string;
- description: string;
- price: number;
- quantity: number;
+import { createLivro, getLivroById, updateLivro } from '../services/api';
+
+interface Livro {
+    titulo: string;
+    autor: string;
+    ano: number;
+    genero: string;
+    paginas: number;
 }
-
-function ProductForm() {
-
- const { id } = useParams<{ id: string }>();
- const navigate = useNavigate();
- const [product, setProduct] = useState<Product>({
- name: '',
- description: '',
- price: 0,
- quantity: 0,
- });
- useEffect(() => {
- if (id) {
- loadProduct();
- }
- }, [id]);
- const loadProduct = async () => {
- try {
- const response = await getProductById(id as string);
- setProduct(response.data);
- } catch (error) {
- console.error("Error loading product data", error);
- }
- };
- const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
- setProduct({
- ...product,
- [e.target.name]: e.target.value,
- });
- };
- const handleSubmit = async (e: React.FormEvent) => {
- e.preventDefault();
- try {
- if (id) {
- await updateProduct(id, product);
- } else {
- await createProduct(product);
- }
- navigate('/');
- } catch (error) {
- console.error("Error saving product", error);
- }
- };
- return (
- <form onSubmit={handleSubmit}>
- <div>
- <label>Name</label>
- <input
- type="text"
- name="name"
- value={product.name}
- onChange={handleChange}
- />
- </div>
- <div>
- <label>Description</label>
- <input
- type="text"
- name="description"
- value={product.description}
- onChange={handleChange}
- />
- </div>
- <div>
- <label>Price</label>
- <input
- type="number"
- name="price"
- value={product.price}
- onChange={handleChange}
- />
- </div>
- <div>
- <label>Quantity</label>
- <input
- type="number"
- name="quantity"
- value={product.quantity}
- onChange={handleChange}
- />
- </div>
- <button type="submit">Save</button>
- </form>
- );
+function LivroForm() {
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const [livro, setLivro] = useState<Livro>({
+        titulo: '',
+        autor: '',
+        ano: 0,
+        genero: '',
+        paginas: 0,
+    });
+    useEffect(() => {
+        if (id) {
+            loadLivro();
+        }
+    }, [id]);
+    const loadLivro = async () => {
+        try {
+            const response = await getLivroById(id as string);
+            setLivro(response.data);
+        } catch (error) {
+            console.error("Error loading product data", error);
+        }
+    };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLivro({
+            ...livro,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            if (id) {
+                await updateLivro(id, livro);
+            } else {
+                await createLivro(livro);
+            }
+            navigate('/');
+        } catch (error) {
+            console.error("Error saving product", error);
+        }
+    };
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Titulo</label>
+                <input
+                    type="text"
+                    name="titulo"
+                    value={livro.titulo}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label>Autor</label>
+                <input
+                    type="text"
+                    name="autor"
+                    value={livro.autor}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label>Ano</label>
+                <input
+                    type="number"
+                    name="ano"
+                    value={livro.ano}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label>Genero</label>
+                <input
+                    type="text"
+                    name="genero"
+                    value={livro.genero}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label>Paginas</label>
+                <input
+                    type="number"
+                    name="paginas"
+                    value={livro.paginas}
+                    onChange={handleChange}
+                />
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    );
 }
-
-export default ProductForm;
+export default LivroForm;
 
 3.4 Home.tsx
 
-import ProductList from '../components/ProductList';
+import LivroList from '../components/LivroList';
+
 function Home() {
- return (
- <div>
- <h1>Product Management</h1>
- <ProductList />
- </div>
- );
+    return (
+        <div>
+            <h1>Livro Management</h1>
+            <LivroList />
+            
+        </div>
+    );
 }
-    
 export default Home;
     
-3.5 AddProduct.tsx
+3.5 AddLivro.tsx
 
-import ProductForm from '../components/ProductForm';
-function AddProduct() {
- return (
- <div>
- <h1>Add Product</h1>
- <ProductForm />
- </div>
- );
+import LivroForm from '../components/LivroForm';
+function AddLivro() {
+    return (
+        <div>
+            <h1>Adicionar Livro</h1>
+            <LivroForm />
+        </div>
+    );
 }
+export default AddLivro;
     
-export default AddProduct;
-    
-3.6 EditProduct.tsx
+3.6 EditLivro.tsx
 
-import ProductForm from '../components/ProductForm';
-function EditProduct() {
- return (
- <div>
- <h1>Edit Product</h1>
- <ProductForm />
- </div>
- );
+import LivroForm from '../components/LivroForm';
+function EditLivro() {
+    return (
+        <div>
+            <h1>Editar Livro</h1>
+            <LivroForm />
+        </div>
+    );
 }
-    
-export default EditProduct;
+export default EditLivro;
     
 3.7 App.tsx
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Home from './pages/Home';
-import AddProduct from './pages/AddProduct';
-import EditProduct from './pages/EditProduct';
-function App() {
- return (
- <Router>
- <Routes>
- <Route path="/" element={<Home />} />
- <Route path="/add" element={<AddProduct />} />
- <Route path="/edit/:id" element={<EditProduct />} />
- </Routes>
- </Router>
- );
-}
+import AddLivro from './pages/AddLivro';
+import EditLivro from './pages/EditLivro';
+import LivroForm from './components/LivroForm';
+import LivroList from './components/LivroList';
 
+
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add" element={<AddLivro />} />
+        <Route path="/edit/:id" element={<EditLivro />} />
+        <Route path="/from" element={<LivroForm />} />
+        <Route path="/list" element={<LivroList />} />
+      </Routes>
+    </Router>
+  );
+}
 export default App;
