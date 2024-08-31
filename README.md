@@ -94,7 +94,6 @@ interface Livro {
  genero: strimg;
  paginas: number;
 }
-
 function LivroList() {
     const [livros, setLivros] = useState<Livro[]>([]);
     useEffect(() => {
