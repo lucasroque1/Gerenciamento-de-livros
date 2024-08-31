@@ -242,7 +242,6 @@ function Home() {
         <div>
             <h1>Livro Management</h1>
             <LivroList />
-            
         </div>
     );
 }
