@@ -28,6 +28,7 @@ npm install json-server
 
 
 Agora crie um arquivo db.json na raiz do projeto:
+
 {
  "products": [
  {
