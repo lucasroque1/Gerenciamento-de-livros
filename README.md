@@ -32,12 +32,12 @@ Agora crie um arquivo db.json na raiz do projeto:
 {
   "livros": [
     {
-      "id": "5c18",
-      "titulo": "bat",
-      "autor": "eu",
-      "ano": "123321",
-      "genero": "ação",
-      "paginas": "123"
+      "id": "1",
+      "titulo": "",
+      "autor": "",
+      "ano": "1",
+      "genero": "",
+      "paginas": "1"
     }
   ]
 }
