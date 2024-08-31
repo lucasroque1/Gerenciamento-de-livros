@@ -239,6 +239,7 @@ function Home() {
  </div>
  );
 }
+    
 export default Home;
     
 3.5 AddProduct.tsx
@@ -252,6 +253,7 @@ function AddProduct() {
  </div>
  );
 }
+    
 export default AddProduct;
     
 3.6 EditProduct.tsx
@@ -265,6 +267,7 @@ function EditProduct() {
  </div>
  );
 }
+    
 export default EditProduct;
     
 3.7 App.tsx
@@ -284,4 +287,5 @@ function App() {
  </Router>
  );
 }
+
 export default App;
