@@ -46,7 +46,7 @@ Inicializando o servidor:
 npx json-server --watch db.json --port 3001
 
 2. Estruturando o Projeto
-3. 
+    
 Aqui está a estrutura básica que você deve seguir:
 
 src/
