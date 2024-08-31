@@ -66,7 +66,7 @@ services/
 App.tsx
 main.tsx
 
-5. Implementação dos Componentes
+3 Implementação dos Componentes
 
 3.1 api.ts (Serviço de API)
 
