@@ -240,7 +240,9 @@ function Home() {
  );
 }
 export default Home;
+    
 3.5 AddProduct.tsx
+
 import ProductForm from '../components/ProductForm';
 function AddProduct() {
  return (
@@ -251,7 +253,9 @@ function AddProduct() {
  );
 }
 export default AddProduct;
+    
 3.6 EditProduct.tsx
+
 import ProductForm from '../components/ProductForm';
 function EditProduct() {
  return (
@@ -262,7 +266,9 @@ function EditProduct() {
  );
 }
 export default EditProduct;
+    
 3.7 App.tsx
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AddProduct from './pages/AddProduct';
