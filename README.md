@@ -74,6 +74,7 @@ main.tsx
 
 3 Implementação dos Componentes
 
+
 3.1 api.ts (Serviço de API)
 
 import axios from 'axios';
