@@ -1,6 +1,6 @@
 ﻿# Gerenciamento-de-livros
 
-Este projeto é uma aplicação React para gerenciar um inventário de livros, permitindo adicionar, editar, visualizar e deletar livros. A aplicação utiliza `json-server` como backend simulado.
+Este projeto é uma aplicação React para gerenciar um inventário de livros, permitindo adicionar, editar, visualizar e deletar livros. A aplicação utiliza `json-server` como backend simulado.teste
 
 ## Requisitos
 
