@@ -43,6 +43,7 @@ Agora crie um arquivo db.json na raiz do projeto:
     }
   ]
 }
+
 Inicializando o servidor:
 
 npx json-server --watch db.json --port 3001
