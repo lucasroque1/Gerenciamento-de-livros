@@ -15,7 +15,9 @@ Este projeto é uma aplicação React para gerenciar um inventário de livros, p
 1.1 Instalação do Vite com React e TypeScript:
 
 npm create vite@latest my-crud-app --template react-ts
+
 cd my-crud-app
+
 npm instal
 
 1.2 Instalação das Dependências Necessárias:
