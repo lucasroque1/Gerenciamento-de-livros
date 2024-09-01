@@ -88,6 +88,7 @@ export const createLivro = (livro: any) => api.post('/livros', livro);
 export const updateLivro = (id: string, livro: any) => api.put(`/livros/${id}`, livro);
 export const deleteLivro = (id: string) => api.delete(`/livros/${id}`);
 
+
 3.2 LivroList.tsx
 
 import { useEffect, useState } from 'react';
@@ -101,6 +102,8 @@ interface Livro {
  genero: strimg;
  paginas: number;
 }
+
+
 function LivroList() {
 
     const [livros, setLivros] = useState<Livro[]>([]);
@@ -130,9 +133,7 @@ function LivroList() {
                     </li>
                 ))}
         </div>
-    );
-}
-export default LivroList;
+    );}export default LivroList;
 
 3.3 LivroForm.tsx
 
@@ -141,13 +142,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createLivro, getLivroById, updateLivro } from '../services/api';
 
 interface Livro {
+
     titulo: string;
     autor: string;
     ano: number;
     genero: string;
-    paginas: number;
-}
+    paginas: number;}
+    
 function LivroForm() {
+
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [livro, setLivro] = useState<Livro>({
@@ -238,49 +241,44 @@ function LivroForm() {
             </div>
             <button type="submit">Save</button>
         </form>
-    );
-}
-export default LivroForm;
+    );}export default LivroForm;
 
 3.4 Home.tsx
 
 import LivroList from '../components/LivroList';
 
 function Home() {
+
     return (
         <div>
             <h1>Livro Management</h1>
             <LivroList />
         </div>
-    );
-}
-export default Home;
+    );}export default Home;
     
 3.5 AddLivro.tsx
 
 import LivroForm from '../components/LivroForm';
 function AddLivro() {
+
     return (
         <div>
             <h1>Adicionar Livro</h1>
             <LivroForm />
         </div>
-    );
-}
-export default AddLivro;
+    );}export default AddLivro;
     
 3.6 EditLivro.tsx
 
 import LivroForm from '../components/LivroForm';
 function EditLivro() {
+
     return (
         <div>
             <h1>Editar Livro</h1>
             <LivroForm />
         </div>
-    );
-}
-export default EditLivro;
+    );}export default EditLivro;
     
 3.7 App.tsx
 
@@ -294,6 +292,7 @@ import LivroList from './components/LivroList';
 
 
 function App() {
+
   return (
     <Router>
       <Routes>
