@@ -10,9 +10,9 @@ Este projeto é uma aplicação React para gerenciar um inventário de livros, p
 
 ## Iniciando o projeto
 
-1. Configuração do Projeto
+##1. Configuração do Projeto
    
-1.1 Instalação do Vite com React e TypeScript:
+###1.1 Instalação do Vite com React e TypeScript:
 
 npm create vite@latest my-crud-app --template react-ts
 
