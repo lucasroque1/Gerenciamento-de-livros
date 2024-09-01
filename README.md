@@ -72,10 +72,10 @@ services/
 App.tsx
 main.tsx
 
-3 Implementação dos Componentes
+## Implementação dos Componentes
 
 
-3.1 api.ts (Serviço de API)
+1. api.ts (Serviço de API)
 
 import axios from 'axios';
 const api = axios.create({
@@ -89,7 +89,7 @@ export const updateLivro = (id: string, livro: any) => api.put(`/livros/${id}`, 
 export const deleteLivro = (id: string) => api.delete(`/livros/${id}`);
 
 
-3.2 LivroList.tsx
+2. LivroList.tsx
 
 import { useEffect, useState } from 'react';
 import { getLivros, deleteLivro } from '../services/api';
@@ -135,7 +135,7 @@ function LivroList() {
         </div>
     );}export default LivroList;
 
-3.3 LivroForm.tsx
+3. LivroForm.tsx
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -243,7 +243,7 @@ function LivroForm() {
         </form>
     );}export default LivroForm;
 
-3.4 Home.tsx
+4. Home.tsx
 
 import LivroList from '../components/LivroList';
 
@@ -256,7 +256,7 @@ function Home() {
         </div>
     );}export default Home;
     
-3.5 AddLivro.tsx
+5. AddLivro.tsx
 
 import LivroForm from '../components/LivroForm';
 function AddLivro() {
@@ -268,7 +268,7 @@ function AddLivro() {
         </div>
     );}export default AddLivro;
     
-3.6 EditLivro.tsx
+6. EditLivro.tsx
 
 import LivroForm from '../components/LivroForm';
 function EditLivro() {
@@ -280,7 +280,7 @@ function EditLivro() {
         </div>
     );}export default EditLivro;
     
-3.7 App.tsx
+7. App.tsx
 
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import Home from './pages/Home';
