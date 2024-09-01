@@ -18,7 +18,7 @@ npm create vite@latest my-crud-app --template react-ts
 
 cd my-crud-app
 
-npm instal
+npm install
 
 1.2 Instalação das Dependências Necessárias:
 
